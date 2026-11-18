@@ -1,0 +1,46 @@
+{
+    "name": "all_toolcall_failures_go_die",
+    "display_name": "所有的工具调用失败都给我tm去死吧插件",
+    "version": "1.1.0",
+    "description": "在 AFTER_LLM_REQUEST 处拦截可修复的工具调用故障：纯文本代替工具调用、工具名不匹配、args 不是对象、缺失必填参数、参数类型/枚举错误。对纯文本会先从本次工具目录里识别当前 chatter 的「发送消息」工具并本地套壳成合法调用（零 token），识别不到或多候选时才用一次极简提示词请求第二个 LLM 套壳/重写；其余故障先做零 token 本地修复。结果回写本次响应，使 chatter 能正常解析执行。",
+    "author": "MoFox Team",
+    "categories": [
+        "chat"
+    ],
+    "tags": [
+        "tool_call",
+        "repair",
+        "llm",
+        "event_handler",
+        "json"
+    ],
+    "dependencies": {
+        "plugins": [],
+        "components": []
+    },
+    "include": [
+        {
+            "component_type": "config",
+            "component_name": "config",
+            "dependencies": []
+        },
+        {
+            "component_type": "service",
+            "component_name": "toolcall_repair",
+            "dependencies": []
+        },
+        {
+            "component_type": "event_handler",
+            "component_name": "toolcall_repair_handler",
+            "dependencies": []
+        }
+    ],
+    "entry_point": "plugin.py",
+    "api_version": {
+        "llm_api": "1.2.0",
+        "log_api": "1.0.0"
+    },
+    "min_core_version": "1.2.0",
+    "python_dependencies": [],
+    "dependencies_required": true
+}
